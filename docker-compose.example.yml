@@ -1,0 +1,32 @@
+version: '3.7'
+
+services:
+
+  scprime:
+    container_name: scprime
+    image: scprime/scprime:latest
+    restart: always
+    ports:
+      - 4281:4281
+      - 4282:4282
+      - 4283:4283
+      - 4285:4285
+    command: -M gctwh
+    environment:
+      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      # SCPRIME_WALLET_PASSWORD=YOUR WALLET SEEDS HERE
+      # You'll get after spc wallet init
+      - SCPRIME_WALLET_PASSWORD=
+      - SCPRIME_API_PASSWORD=
+    volumes:
+      # Change this with your paths to your data
+      #- /volume2/virtualization/docker/scp-data:/scp-data
+      - /volume2/docker/scp-data:/scp-data
+      - /volume4/scp_1_1:/scp_1_1
+    networks:
+      - scprime
+
+#Podemos crear una red privada y otra publica
+networks:
+  scprime:
+    external: true #red publica
